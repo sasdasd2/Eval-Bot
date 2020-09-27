@@ -16,6 +16,5 @@
   "kotlin": "kotlin",
   "typescript": "typescript",
   "ts": "typescript",
-  "c++": "cpp",
   "elixir": "elixir"
 }
