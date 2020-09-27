@@ -1,0 +1,21 @@
+{
+  "js": "node",
+  "py": "python3",
+  "go": "go",
+  "rust": "rust",
+  "php": "php",
+  "ruby": "ruby",
+  "julia": "julia",
+  "bash": "bash",
+  "swift": "swift",
+  "perl": "perl",
+  "python": "python3",
+  "java": "java",
+  "csharp": "csharp",
+  "cpp": "cpp",
+  "kotlin": "kotlin",
+  "typescript": "typescript",
+  "ts": "typescript",
+  "c++": "cpp",
+  "elixir": "elixir"
+}
