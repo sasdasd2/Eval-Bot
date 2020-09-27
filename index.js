@@ -8,7 +8,7 @@ client
   .on("message", async message => {
     if (message.author.bot || !message.guild || !message.content.startsWith(PREFIX))return;
     const args = message.content.slice(PREFIX.length).trim().split(/ +/);
-    if (Object.keys(languages).some(l =>new RegExp("^```" + l + "\\s?[\\s\\S]*```$", "g").test(args.join(" ")))) {
+    if(args[0] && Object.keys(languages).some(l => RegExp("^```" + l + "\\s?[\\s\\S]*```$", "g").test(args.join(" ")))) {
       message.react("⏱️");
       let lang = Object.keys(languages).find(x => args.join(" ").includes(x));
       let code = args.join(" ").slice(3 + lang.length, -3).trim();
@@ -22,5 +22,5 @@ client
         return message.channel.send(`:white_check_mark: | Output was too long!\n<${bin}>`);
       }
       message.channel.send("```" + output.output + "```");
-    } else return message.react("🧐");
+    }
   }).login(TOKEN);
