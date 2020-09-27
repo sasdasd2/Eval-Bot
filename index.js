@@ -1,5 +1,6 @@
 const client = new (require("discord.js")).Client();
 const { TOKEN, PREFIX } = require("./config");
+const { hastebin, evalCode } = require("./utils");
 const languages = require("./languages");
 
 client
@@ -12,10 +13,10 @@ client
       let lang = Object.keys(languages).find(x => args.join(" ").includes(x));
       let code = args.join(" ").slice(3 + lang.length, -3).trim();
       if (code.length <= 1)return message.channel.send(":x: | Please include a code to eval!");
-      const output = await require("./eval")(languages[lang], code);
+      const output = await evalCode(languages[lang], code);
       if (output.output.length <= 0)return message.channel.send("```" + "Empty output" + "```");
       if (output.output.length > 2006) {
-        let bin = await require("./hastebin")(output.output).catch(() => {
+        let bin = await hastebin(output.output).catch(() => {
           return message.channel.send(":x: | 404");
         });
         return message.channel.send(`:white_check_mark: | Output was too long!\n<${bin}>`);
