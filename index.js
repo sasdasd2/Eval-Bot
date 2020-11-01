@@ -13,14 +13,11 @@ client
       let lang = Object.keys(languages).find(x => args.join(" ").includes(x));
       let code = args.join(" ").slice(3 + lang.length, -3).trim();
       if (code.length <= 1)return message.channel.send(":x: | Please include a code to eval!");
-      const output = await evalCode(languages[lang], code);
-      if (output.output.length <= 0)return message.channel.send("```" + "Empty output" + "```");
-      if (output.output.length > 2006) {
-        let bin = await hastebin(output.output).catch(() => {
-          return message.channel.send(":x: | 404");
-        });
-        return message.channel.send(`:white_check_mark: | Output was too long!\n<${bin}>`);
-      }
-      message.channel.send("```" + output.output + "```");
+      const { output } = await evalCode(languages[lang], code);
+      if (output.length <= 0)return message.channel.send("```" + "Empty output" + "```");
+      if (output.length > 2006)return hastebin(output)
+         .then(url=> message.channel.send(`:white_check_mark: | Output was too long!\n<${url}>`))
+         .catch(() => message.channel.send(":x: | 404"));
+      message.channel.send("```" + output + "```").catch(()=> message.react("❎"));
     }
   }).login(TOKEN);
